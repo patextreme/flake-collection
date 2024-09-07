@@ -32,25 +32,36 @@
         };
       in
       {
+        devShells.default = pkgs.mkShell { packages = [ rust ]; };
+
         packages = {
           loco-cli = rustPlatform.buildRustPackage rec {
-            pname = "loco";
-            version = "v0.8.1"; # loco-cli version might be different, but it's fine
+            pname = "loco-cli";
+            version = "0.2.7";
 
-            src = pkgs.fetchFromGitHub {
-              owner = "loco-rs";
-              repo = "loco";
-              rev = version;
-              hash = "sha256-bAj9850tKxwuDmGFRBUWvagnreYDScy99lBpMrSE764=";
-              sparseCheckout = [ "loco-cli" ];
+            src = pkgs.fetchCrate {
+              inherit pname version;
+              hash = "sha256-GuOsTFahB9Ln22jBT4EShVthKs8LXytXltV47KJGZZI=";
             };
 
-            sourceRoot = "${src.name}/loco-cli";
-            cargoLock.lockFile = ./cargo-locks/loco-cli.lock;
+            cargoHash = "sha256-3XLlGJnQgA3WZyjPIv+EBwFobFiMAsvVNNd75Z02AnY=";
+          };
 
-            postPatch = ''
-              ln -s ${cargoLock.lockFile} Cargo.lock
-            '';
+          sea-orm-cli = rustPlatform.buildRustPackage rec {
+            pname = "sea-orm-cli";
+            version = "1.0.1";
+
+            src = pkgs.fetchCrate {
+              inherit pname version;
+              hash = "sha256-b1Nlt3vsLDajTiIW9Vn51Tv9gXja8/ZZBD62iZjh3KY=";
+            };
+
+            nativeBuildInputs = with pkgs; [ pkg-config ];
+
+            buildInputs = with pkgs; [ openssl ]
+              ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.SystemConfiguration ];
+
+            cargoHash = "sha256-ZGM+Y67ycBiukgEBUq+WiA1OUCGahya591gM6CGwzMQ=";
           };
         };
       }
