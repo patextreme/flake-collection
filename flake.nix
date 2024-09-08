@@ -1,5 +1,5 @@
 {
-  description = "My collection of flake packages when upstream doesn't provide one";
+  description = "Personal collection of handy flake components";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
