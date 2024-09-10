@@ -3,5 +3,5 @@
 # Templates
 
 ```bash
-nix flake new --template 'github:patextreme/flake-collection#rust' ./my-rust-project
+nix flake new --template 'github:patextreme/flake-collection#rust' ./my-project
 ```
