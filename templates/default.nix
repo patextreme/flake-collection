@@ -7,4 +7,8 @@
     description = "Minimal python template";
     path = ./python;
   };
+  gleam = {
+    description = "Minimal gleam template";
+    path = ./gleam;
+  };
 }
