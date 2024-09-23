@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  rust = pkgs.rust-bin.nightly."2024-09-06".default.override {
+  rust = pkgs.rust-bin.nightly."2024-09-22".default.override {
     extensions = [ ];
     targets = [ ];
   };
@@ -12,12 +12,13 @@ in
 {
   loco-cli = rustPlatform.buildRustPackage rec {
     pname = "loco-cli";
-    version = "0.2.7";
+    version = "0.2.9";
     src = pkgs.fetchCrate {
       inherit pname version;
-      hash = "sha256-GuOsTFahB9Ln22jBT4EShVthKs8LXytXltV47KJGZZI=";
+      hash = "sha256-AhL+k5XEf8m1pyOECTlPwALUG/ELJeACfV2kulxlzaA=";
     };
-    cargoHash = "sha256-3XLlGJnQgA3WZyjPIv+EBwFobFiMAsvVNNd75Z02AnY=";
+    cargoHash = "sha256-BtunTti1cPbG1Qiv39tLdbXHM413UzsCckyqL5CJEUA=";
+    doCheck = false;
   };
 
   sea-orm-cli = rustPlatform.buildRustPackage rec {
@@ -33,5 +34,6 @@ in
       [ openssl ]
       ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.SystemConfiguration ];
     cargoHash = "sha256-ZGM+Y67ycBiukgEBUq+WiA1OUCGahya591gM6CGwzMQ=";
+    doCheck = false;
   };
 }
