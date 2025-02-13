@@ -38,14 +38,9 @@
                 less
                 which
                 # python
-                black
-                (python312.withPackages (
-                  p: with p; [
-                    python-lsp-server
-                    python-lsp-black
-                    requests
-                  ]
-                ))
+                uv
+                ruff
+                (python312.withPackages (p: with p; [ python-lsp-server ]))
               ])
               ++ (builtins.attrValues scripts);
 
